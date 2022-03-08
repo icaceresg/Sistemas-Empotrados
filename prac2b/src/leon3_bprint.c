@@ -49,6 +49,10 @@ int8_t leon3_print_uint8(uint8_t i)
 		leon3_putchar((aux / 10) +'0');
 		leon3_putchar((aux % 10) + '0');
 	}
-	return (leon3_uart_tx_fifo_is_empty());
+	
+	// Solución demasiado particular, debes generalizarla. En la P3 hay que imprimir un uint32
+	// Piensa en un bucle, los ceros a la izquierda no hay que imprimirlos 
+	
+	return (leon3_uart_tx_fifo_is_empty()); // lo mismo... 
 }
 
