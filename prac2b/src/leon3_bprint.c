@@ -11,7 +11,25 @@ int8_t leon3_print_string(char *str)
 		leon3_putchar(str[i]);
 		i++;
 	}
-	return (leon3_uart_tx_fifo_is_empty());
+	return (leon3_uart_tx_fifo_is_empty()); // Esto no espera a que este vacia la fifo
+/*
+	//Mejora: while(*str!='\0'){
+	//funciona, pero mejor si tratas errores
+    	//int8_t error=0;
+    	//while(str[i]!='\0'&&(!error)){
+   
+	while(*str!='\0'&&(!error)){
+		error=leon3_putchar(*str);
+		//error=leon3_putchar(str[i]);
+		str++;
+	}
+
+	//Error: Debes añadir la espera a que la fifo de transmisión se vacie
+	while(!leon3_uart_tx_fifo_is_empty())
+	 ;
+	 
+	 return error;
+*/
 }
 
 int8_t leon3_print_uint8(uint8_t i)
@@ -31,6 +49,10 @@ int8_t leon3_print_uint8(uint8_t i)
 		leon3_putchar((aux / 10) +'0');
 		leon3_putchar((aux % 10) + '0');
 	}
-	return (leon3_uart_tx_fifo_is_empty());
+	
+	// Solución demasiado particular, debes generalizarla. En la P3 hay que imprimir un uint32
+	// Piensa en un bucle, los ceros a la izquierda no hay que imprimirlos 
+	
+	return (leon3_uart_tx_fifo_is_empty()); // lo mismo... 
 }
 

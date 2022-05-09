@@ -33,5 +33,9 @@ int8_t leon3_uart_tx_fifo_is_empty()
 		return (int8_t) 1;
 	else
 		return (int8_t) 0;
+	
+//Mejora:Está bien, pero no lo más sencillo es
+//return (LEON3_UART_TFE & pLEON3_UART_REGS->Status);
+//Basta con que sea !=0
 
 }
